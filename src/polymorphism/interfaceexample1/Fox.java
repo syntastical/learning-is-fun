@@ -1,4 +1,4 @@
-package interfaceexample1;
+package polymorphism.interfaceexample1;
 
 public class Fox implements Animal {
     public void run() {

@@ -1,4 +1,4 @@
-package interfaceexample1;
+package polymorphism.interfaceexample1;
 
 import java.util.ArrayList;
 import java.util.List;

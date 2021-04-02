@@ -1,4 +1,4 @@
-package abstractexample1;
+package polymorphism.abstractexample1;
 
 public class Dog extends Animal {
     public Dog() {

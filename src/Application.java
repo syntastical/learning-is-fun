@@ -1,5 +1,4 @@
-import abstractexample1.AbstractExample1;
-import interfaceexample2.InterfaceExample2;
+import polymorphism.abstractexample1.AbstractExample1;
 
 public class Application {
     public static void main(String[] args) {

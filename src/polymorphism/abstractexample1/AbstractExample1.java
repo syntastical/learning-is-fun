@@ -1,4 +1,4 @@
-package abstractexample1;
+package polymorphism.abstractexample1;
 
 import java.util.ArrayList;
 import java.util.List;
