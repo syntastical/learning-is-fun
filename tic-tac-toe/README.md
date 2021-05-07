@@ -14,3 +14,9 @@
 
 https://guides.micronaut.io/latest/micronaut-security-basicauth-gradle-java.html
 https://micronaut-projects.github.io/micronaut-security/latest/guide/
+
+# Homework
+## 2021-05-07
+### Add the association between user login and current game
+### Users can only be in one game at a time
+### Login back in will have the user rejoin the same game as before
