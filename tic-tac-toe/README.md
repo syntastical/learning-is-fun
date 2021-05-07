@@ -10,3 +10,7 @@
 
 - [Micronaut HTTP Client documentation](https://docs.micronaut.io/latest/guide/index.html#httpClient)
 
+# Security
+
+https://guides.micronaut.io/latest/micronaut-security-basicauth-gradle-java.html
+https://micronaut-projects.github.io/micronaut-security/latest/guide/

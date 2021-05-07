@@ -1,3 +1,6 @@
 micronaut:
   application:
     name: sandbox
+  security:
+    basic-auth:
+      enabled: true

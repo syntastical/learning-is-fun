@@ -2,11 +2,16 @@ package com.example;
 
 
 import io.micronaut.http.annotation.*;
+import io.micronaut.security.annotation.Secured;
+import io.micronaut.security.rules.SecurityRule;
 
+@Secured(SecurityRule.IS_AUTHENTICATED)
 @Controller("/api1")
 public class ApiController {
     ApiResponse data = new ApiResponse();
+
     @Get
+    // @Secured({"admin"})
     public ApiResponse getHello() {
         return new ApiResponse();
     }
