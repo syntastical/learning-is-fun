@@ -1,6 +1,8 @@
 package com.example;
 
 import io.micronaut.http.annotation.*;
+import io.micronaut.security.annotation.Secured;
+
 import java.util.HashMap;
 /*
 @Controller("/api")
@@ -100,6 +102,7 @@ class GameState {
 }
 
 @Controller("/api/tic-tac-toe")
+@Secured({"admin"})
 public class TicTacToe {
 
     private HashMap<Integer, GameState> games = new HashMap<>();
