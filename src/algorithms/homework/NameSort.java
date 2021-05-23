@@ -14,25 +14,27 @@ class SortName implements Comparator<String> {
 public class NameSort {
     public static void main(String[] args) {
         ArrayList<String> nameArray = new ArrayList<>();
+
         Scanner scanner = new Scanner(System.in);
-        /*
-         * Ideally you would use code like this
-         * String x = System.console().readLine();
-         *
-         * but Intellij does gracefully support this, and System.console() returns null
-         *
-         * The problem you're having is tht scanner.nextLine() grabs whatever is on the current line of input
-         * and returns immediately.  THis is another method, scanner.next() which will wait for the next "token".
-         * I made the change below.  Plase let me know if you need anything else.
-         */
+
+        String errMsg = "Sorry, please try again";
 
         System.out.println("Number of names: ");
         int names = scanner.nextInt();
 
-        for (int i = 0; i <= names; i++) {
-            System.out.println("Name " + i + ": ");
-            String name = scanner.next();
-
+        for (int i = 1; i <= names; i++) {
+            boolean nameCorrect = true;
+            String name = null;
+            while (nameCorrect) {
+                System.out.println("Name " + i + ": ");
+                name = scanner.next();
+                if (!name.isEmpty()) {
+                    nameCorrect = false;
+                }
+                else {
+                    System.out.println(errMsg);
+                }
+            }
             nameArray.add(name);
         }
 

@@ -154,23 +154,27 @@ public class TicTacToe {
 
         for (int i = 0; i < 3; i++) {
             if (games.get(move.gameId).boardState[i][0].equals(games.get(move.gameId).boardState[i][1]) &&
-                    games.get(move.gameId).boardState[i][0].equals(games.get(move.gameId).boardState[i][2])) {
+                    games.get(move.gameId).boardState[i][0].equals(games.get(move.gameId).boardState[i][2]) &&
+                    !games.get(move.gameId).boardState[i][0].equals("")) {
                 games.get(move.gameId).winState = true;
             }
 
             if (games.get(move.gameId).boardState[0][i].equals(games.get(move.gameId).boardState[1][i]) &&
-                    games.get(move.gameId).boardState[0][i].equals(games.get(move.gameId).boardState[2][i])) {
+                    games.get(move.gameId).boardState[0][i].equals(games.get(move.gameId).boardState[2][i]) &&
+                    !games.get(move.gameId).boardState[0][i].equals("")) {
                 games.get(move.gameId).winState = true;
             }
         }
 
         if (games.get(move.gameId).boardState[0][0].equals(games.get(move.gameId).boardState[1][1]) &&
-                games.get(move.gameId).boardState[0][0].equals(games.get(move.gameId).boardState[2][2])) {
+                games.get(move.gameId).boardState[0][0].equals(games.get(move.gameId).boardState[2][2]) &&
+                !games.get(move.gameId).boardState[1][1].equals("")) {
             games.get(move.gameId).winState = true;
         }
 
         if (games.get(move.gameId).boardState[0][2].equals(games.get(move.gameId).boardState[1][1]) &&
-                games.get(move.gameId).boardState[0][2].equals(games.get(move.gameId).boardState[2][0])) {
+                games.get(move.gameId).boardState[0][2].equals(games.get(move.gameId).boardState[2][0]) &&
+                !games.get(move.gameId).boardState[1][1].equals("")) {
             games.get(move.gameId).winState = true;
         }
 

@@ -1,0 +1,30 @@
+h1 {
+    text-align: center;
+}
+
+#output {
+    text-align: center;
+    font-family: "Arial", "sans-serif";
+    font-size: 200%;
+}
+
+td {
+    text-align: center;
+    width: 100px;
+    height: 100px;
+    font-family: "Arial", "sans-serif";
+    font-size: 500%;
+}
+
+table {
+    margin: 5px auto;
+}
+
+.vert {
+    border-left: 4px solid black;
+    border-right: 4px solid black;
+}
+.hori {
+    border-top: 4px solid black;
+    border-bottom: 4px solid black;
+}

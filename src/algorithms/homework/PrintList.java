@@ -50,13 +50,13 @@ public class PrintList {
         ArrayList<Product> productList = new ArrayList<>();
 
         var product1 = new Product(10, "Food", 100);
-        var product2 = new Product(9, "Drink", 110);
-        var product3 = new Product(9, "Drink", 100);
-        var product4 = new Product(9, "Food", 110);
-        var product5 = new Product(10, "Drink", 110);
-        var product6 = new Product(10, "Drink", 100);
+        var product2 = new Product(9, "Snacks", 110);
+        var product3 = new Product(11, "Drink", 100);
+        var product4 = new Product(7, "Food", 110);
+        var product5 = new Product(10, "Drink", 100);
+        var product6 = new Product(11, "Snacks", 10);
         var product7 = new Product(9, "Food", 100);
-        var product8 = new Product(10, "Food", 110);
+        var product8 = new Product(12, "Toys", 3);
 
         productList.add(product1);
         productList.add(product2);

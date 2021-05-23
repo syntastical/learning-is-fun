@@ -1,78 +1,30 @@
-<html xmlns="http://www.w3.org/1999/html">
+<html xmlns="http://www.w3.org/1999/html" lang="en-us">
     <head>
-
+        <link rel="stylesheet" type="text/css" href="stylesheet.css" media="screen"/>
+        <title>Tic Tac Toe</title>
     </head>
     <body>
-        <span id="output"></span>
-        <table>
+        <h1>Tic Tac Toe</h1>
+        <input type="button" onclick="createGame()" value="Create Game" />
+        <h2 id="output"></h2>
+        <table onclick="updateBoard()">
+
             <tr>
                 <td id="0"></td>
-                <td id="1"></td>
+                <td id="1" class="vert"></td>
                 <td id="2"></td>
             </tr>
             <tr>
-                <td id="3"></td>
-                <td id="4"></td>
-                <td id="5"></td>
+                <td id="3" class="hori"></td>
+                <td id="4" class="vert hori"></td>
+                <td id="5" class="hori"></td>
             </tr>
             <tr>
                 <td id="6"></td>
-                <td id="7"></td>
+                <td id="7" class="vert"></td>
                 <td id="8"></td>
             </tr>
         </table>
-        <script>
-            const board = [
-                [document.getElementById('0'), document.getElementById('1'), document.getElementById('2')],
-                [document.getElementById('3'), document.getElementById('4'), document.getElementById('5')],
-                [document.getElementById('6'), document.getElementById('7'), document.getElementById('8')]
-            ];
-
-
-            // Check board state every second to see if it's your turn
-            // display message to let players know whose turn it is
-
-            function fetchBoardState() {
-                fetch('http://localhost:8080/api/tic-tac-toe/game/1', {
-                    headers: {
-                        Accept: 'application/json',
-                        credentials: 'include',
-                        Authorization: `Basic ${btoa('sean:password')}`
-                    }
-                })
-                    .then(response => {
-                        return response.json()
-                            .then(json => {
-                                for(let x = 0; x < 3; x++) {
-                                    for(let y = 0; y < 3; y++) {
-                                         board[x][y].textContent = json.boardState[x][y];
-                                    }
-                                }
-
-                                // document.getElementById('output').textContent = text
-                            });
-                    });
-            }
-
-            function createGame() {
-                fetch('http://localhost:8080/api/tic-tac-toe', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        credentials: 'include',
-                        Authorization: `Basic ${btoa('sean:password')}`
-                    }
-                })
-                    .then(response => {
-                        return response.text()
-                            .then(text => document.getElementById('output').textContent = text);
-                    });
-            }
-
-            setInterval(() => fetchBoardState(), 1000);
-
-        </script>
-
-        <input type="button" onclick="createGame()" value="Create Game" />
+        <script src="script.js"></script>
     </body>
 </html>

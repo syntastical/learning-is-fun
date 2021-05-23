@@ -1,6 +1,6 @@
 package com.example;
 
-
+/*
 import io.micronaut.http.annotation.*;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
@@ -24,7 +24,7 @@ public class ApiController {
     @Get("login:{username}")
     public String getCredentials(@Body ApiResponse apiResponse, String username) {
         data = apiResponse;
-        return username;/* + "/n" + "Password:  " + password;*/
+        return username; + "/n" + "Password:  " + password;
     }
 
     @Get("/npantino")
@@ -37,3 +37,4 @@ public class ApiController {
         return id;
     }
 }
+*/
