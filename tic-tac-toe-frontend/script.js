@@ -45,9 +45,8 @@ function createGame() {
         });
 }
 
-let xCoord = 0;
-let yCoord = 0;
-
+let xCoord;
+let yCoord;
 function getMousePosition(table, event) {
     let rect = table.getBoundingClientRect();
     console.log(rect);
@@ -56,21 +55,32 @@ function getMousePosition(table, event) {
     console.log("Coordinate x: " + x,
         "Coordinate y: " + y);
 
-    if (x >= 100) {
-        if (x >= 200) {
-            yCoord ++;
-        }
-        yCoord += 2;
+    if (x <= 100) {
+        xCoord = 0;
     }
 
-    if (y >= 100) {
-        if (y >= 200) {
-            xCoord ++;
-        }
-        xCoord += 2;
+    else if (x >= 100 && x <= 200) {
+        xCoord = 1;
+    }
+
+    else {
+        xCoord = 2;
+    }
+
+    if (y <= 100) {
+        yCoord = 0;
+    }
+
+    else if (y >= 100 && y <= 200) {
+        yCoord = 1;
+    }
+
+    else {
+        yCoord = 2;
     }
 }
 
+let id = (xCoord + 3 * yCoord).toString();
 let canvasElem = document.querySelector("table");
 
 canvasElem.addEventListener("mousedown", function(e)
@@ -80,9 +90,47 @@ canvasElem.addEventListener("mousedown", function(e)
 // x, +3, y, +1
 
 
-function updateBoard() {
-    fetch('http://localhost:8080/api/tic-tac-toe/game', {
+async function updateBoard() {
+    console.log("id = " + id);
+    console.log("x = " +xCoord)
+    console.log("y = " +yCoord)
+    let game = {
+        xCoordinate: xCoord,
+        yCoordinate: yCoord,
+        gameId: "1",
+        user: "nick"
+    };
+    console.log("game = " +game);
+/*
+    fetch('http://localhost:8080/api/tic-tac-toe', {
         method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            credentials: 'include',
+            Authorization: `Basic ${btoa('sean:password')}`
+        }
+    })*/
+
+    let response = await fetch('http://localhost:8080/api/tic-tac-toe/game', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+            credentials: 'include',
+            Authorization: `Basic ${btoa('sean:password')}`
+        },
+        body: JSON.stringify(game)
+    })
+
+    .then(response => {
+        if (response.text() === "X" || response.text() === "O") {
+            return response.text()
+                .then(text => document.getElementById(id).textContent = text);
+        }
+    });
+}
+
+function boardState() {
+    fetch('http://localhost:8080/api/tic-tac-toe/game/1', {
         headers: {
             'Content-Type': 'application/json',
             credentials: 'include',
@@ -91,7 +139,7 @@ function updateBoard() {
     })
         .then(response => {
             return response.text()
-                .then(text => document.getElementById(id).textContent = text);
+                .then(text => document.getElementById('output').textContent = text);
         });
 }
-setInterval(() => fetchBoardState(), 1000);
+setInterval(() => fetchBoardState(), 100);

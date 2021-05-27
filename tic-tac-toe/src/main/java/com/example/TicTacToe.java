@@ -37,7 +37,6 @@ public class ApiController {
 */
 
 class Move {
-    public String moveString;
     public int xCoordinate = 0;
     public int yCoordinate = 0;
     public int gameId = 0;
@@ -107,6 +106,7 @@ public class TicTacToe {
 
     private HashMap<Integer, GameState> games = new HashMap<>();
     int gameCount = 0;
+    String moveString;
 
     @Post
     public int createGame() {
@@ -125,32 +125,19 @@ public class TicTacToe {
 
     @Post("/game")
     public GameState updateBoard(@Body Move move) {
-        if (!games.get(move.gameId).boardState[move.xCoordinate][move.yCoordinate].isEmpty()) {
-            throw new RuntimeException("Error 1");
-        }
-
-        if (!move.moveString.equals("O")) {
-            if (!move.moveString.equals("X")) {
-                throw new RuntimeException("Error 2");
-            }
+        if (!games.get(move.gameId).boardState[move.yCoordinate][move.xCoordinate].isEmpty()) {
+            throw new RuntimeException("Error");
         }
 
         if (games.get(move.gameId).playerTurn == 0) {
-            if (!move.moveString.equals("X")) {
-                throw new RuntimeException("Error 3");
-            }
+            moveString = "X";
+        } else {
+            moveString = "O";
         }
 
-        if (games.get(move.gameId).playerTurn == 1) {
-            if (!move.moveString.equals("O")) {
-                throw new RuntimeException("Error 4");
-            }
-        }
         games.get(move.gameId).playerTurn++;
         games.get(move.gameId).playerTurn %= 2;
-        games.get(move.gameId).boardState[move.xCoordinate][move.yCoordinate] = move.moveString;
-
-        //String board = "";
+        games.get(move.gameId).boardState[move.yCoordinate][move.xCoordinate] = moveString;
 
         for (int i = 0; i < 3; i++) {
             if (games.get(move.gameId).boardState[i][0].equals(games.get(move.gameId).boardState[i][1]) &&
@@ -177,41 +164,6 @@ public class TicTacToe {
                 !games.get(move.gameId).boardState[1][1].equals("")) {
             games.get(move.gameId).winState = true;
         }
-
-
-
-      /*
-        for (String[] letter1 : games.get(move.gameId).boardState) {
-            for (String letter2 : letter1) {
-                if (!letter2.isEmpty()) {
-                    board += letter2;
-                }
-                else {
-                    board += null;
-                }
-            }
-        }
-
-       */
-
         return games.get(move.gameId);
-
-
-        /*
-        x
-          x
-            x
-
-            x
-          x
-        x
-        x x x
-        x x x
-        x x x
-        x x x
-        x x x
-        x x x
-         */
     }
-
 }
