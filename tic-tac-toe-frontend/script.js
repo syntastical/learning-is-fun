@@ -41,7 +41,7 @@ function createGame() {
     })
         .then(response => {
             return response.text()
-                .then(text => document.getElementById('output').textContent = text);
+                .then(text => document.getElementById('output').textContent = `Game: ${text}`);
         });
 }
 
@@ -91,7 +91,6 @@ canvasElem.addEventListener("mousedown", function(e)
 
 
 async function updateBoard() {
-    console.log("id = " + id);
     console.log("x = " +xCoord)
     console.log("y = " +yCoord)
     let game = {
@@ -100,7 +99,7 @@ async function updateBoard() {
         gameId: "1",
         user: "nick"
     };
-    console.log("game = " +game);
+    console.log("game: " + game);
 /*
     fetch('http://localhost:8080/api/tic-tac-toe', {
         method: 'POST',

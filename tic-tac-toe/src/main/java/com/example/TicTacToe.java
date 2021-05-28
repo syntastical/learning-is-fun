@@ -3,7 +3,9 @@ package com.example;
 import io.micronaut.http.annotation.*;
 import io.micronaut.security.annotation.Secured;
 
+import java.security.Principal;
 import java.util.HashMap;
+import java.util.Map;
 /*
 @Controller("/api")
 public class ApiController {
@@ -69,6 +71,8 @@ class Move {
 
 class GameState {
     int playerTurn = 0;
+    String player1;
+    String player2;
     String[][] boardState = {{"", "", ""},
                             {"", "", ""},
                             {"", "", ""}};
@@ -81,6 +85,22 @@ class GameState {
 
     public void setPlayerTurn(int playerTurn) {
         this.playerTurn = playerTurn;
+    }
+
+    public String getPlayer1() {
+        return player1;
+    }
+
+    public void setPlayer1(String player1) {
+        this.player1 = player1;
+    }
+
+    public String getPlayer2() {
+        return player2;
+    }
+
+    public void setPlayer2(String player2) {
+        this.player2 = player2;
     }
 
     public String[][] getBoardState() {
@@ -109,13 +129,31 @@ public class TicTacToe {
     String moveString;
 
     @Post
-    public int createGame() {
+    public int createGame(Principal principal) {
         GameState gameState = new GameState();
         // resets playerTurn to 0
-
+        gameState.player1 = principal.getName();
         gameCount++;
         games.put(gameCount, gameState);
         return gameCount;
+    }
+
+    @Post("/join/{gameId}")
+    public void joinGame(Principal principal, int gameId) {
+        games.get(gameId).player2 = principal.getName();
+    }
+
+    @Get("/lobby")
+    public HashMap requestGames() {
+        HashMap<Integer, GameState> joinableGames = new HashMap<>();
+        for (Map.Entry<Integer, GameState> entry: games.entrySet())
+        {
+            if ((entry.getValue().player1 == null || entry.getValue().player2 == null) && !entry.getValue().winState) {
+                System.out.println("working");
+                joinableGames.put(entry.getKey(), entry.getValue());
+            }
+        }
+        return joinableGames;
     }
 
     @Get("/game/{gameId}")

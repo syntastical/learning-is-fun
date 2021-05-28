@@ -21,13 +21,13 @@ public class AuthenticationProviderUserPassword implements AuthenticationProvide
     @Override
     public Publisher<AuthenticationResponse> authenticate(@Nullable HttpRequest<?> httpRequest, AuthenticationRequest<?, ?> authenticationRequest) {
         return Flowable.create(emitter -> {
-            if ( authenticationRequest.getIdentity().equals("sean") &&
+            if (authenticationRequest.getIdentity().equals("sean") &&
                     authenticationRequest.getSecret().equals("password") ) {
                 emitter.onNext(new UserDetails((String) authenticationRequest.getIdentity(), List.of("admin")));
                 emitter.onComplete();
-            } else if ( authenticationRequest.getIdentity().equals("bob") &&
-                    authenticationRequest.getSecret().equals("1234") ) {
-                emitter.onNext(new UserDetails((String) authenticationRequest.getIdentity(), List.of("user")));
+            } else if (authenticationRequest.getIdentity().equals("nick") &&
+                    authenticationRequest.getSecret().equals("word")) {
+                emitter.onNext(new UserDetails((String) authenticationRequest.getIdentity(), List.of("admin")));
                 emitter.onComplete();
             } else {
                 emitter.onError(new AuthenticationException(new AuthenticationFailed()));
