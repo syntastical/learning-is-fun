@@ -19,4 +19,8 @@ https://micronaut-projects.github.io/micronaut-security/latest/guide/
 ## 2021-05-07
 ### Add the association between user login and current game
 ### Users can only be in one game at a time
-### Login back in will have the user rejoin the same game as before
+### Logging back in will have the user rejoin the same game as before
+## 2021-05-28
+### Create game lobby page to display a list of games
+### On game lobby page, have a button next to each game to join that game
+### Once the join game button is click, transition the user to the game board.
