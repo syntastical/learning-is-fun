@@ -45,6 +45,20 @@ function createGame() {
         });
 }
 
+function requestGames() {
+    fetch('http://localhost:8080/api/tic-tac-toe/lobby', {
+        headers: {
+            'Content-Type': 'application/json',
+            credentials: 'include',
+            Authorization: `Basic ${btoa('sean:password')}`
+        }
+    })
+        .then(response => {
+            return response.text()
+                .then(text => document.getElementById('games').textContent = `Game: ${text}`);
+        });
+}
+
 let xCoord;
 let yCoord;
 function getMousePosition(table, event) {
@@ -87,7 +101,6 @@ canvasElem.addEventListener("mousedown", function(e)
 {
     getMousePosition(canvasElem, e);
 });
-// x, +3, y, +1
 
 
 async function updateBoard() {

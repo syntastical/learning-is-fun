@@ -173,9 +173,11 @@ public class TicTacToe {
             moveString = "O";
         }
 
-        games.get(move.gameId).playerTurn++;
-        games.get(move.gameId).playerTurn %= 2;
-        games.get(move.gameId).boardState[move.yCoordinate][move.xCoordinate] = moveString;
+        if (!games.get(move.gameId).winState) {
+            games.get(move.gameId).playerTurn++;
+            games.get(move.gameId).playerTurn %= 2;
+            games.get(move.gameId).boardState[move.yCoordinate][move.xCoordinate] = moveString;
+        }
 
         for (int i = 0; i < 3; i++) {
             if (games.get(move.gameId).boardState[i][0].equals(games.get(move.gameId).boardState[i][1]) &&
