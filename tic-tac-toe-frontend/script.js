@@ -41,7 +41,22 @@ function createGame() {
     })
         .then(response => {
             return response.text()
-                .then(text => document.getElementById('output').textContent = `Game: ${text}`);
+                .then(text => document.location.href = `index.html?game=${text}`);
+        });
+}
+
+function joinGame() {
+    fetch('http://localhost:8080/api/tic-tac-toe', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            credentials: 'include',
+            Authorization: `Basic ${btoa('sean:password')}`
+        }
+    })
+        .then(response => {
+                return response.text()
+                    .then(text => document.location.href = `index.html?game=${text}`);
         });
 }
 
@@ -54,8 +69,9 @@ function requestGames() {
         }
     })
         .then(response => {
-            return response.text()
-                .then(text => document.getElementById('games').textContent = `Game: ${text}`);
+            return response.json()
+                .then(result => {
+                    document.getElementById("games").innerHTML = Object.keys(result)});
         });
 }
 

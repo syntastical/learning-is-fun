@@ -5,11 +5,18 @@
         <title>Tic Tac Toe</title>
     </head>
     <body>
+    <script>
+        var queryString = window.location.search;
+        // Returns:'?q=123'
+
+        // Further parsing:
+        let params = new URLSearchParams(queryString);
+        let q = parseInt(params.get("game")); // is the number 123
+        alert(q);
+    </script>
         <h1>Tic Tac Toe</h1>
-        <input type="button" onclick="createGame()" value="Create Game" />
         <h2 id="output"></h2>
         <table onclick="updateBoard()">
-
             <tr>
                 <td id="0"></td>
                 <td id="1" class="vert"></td>
