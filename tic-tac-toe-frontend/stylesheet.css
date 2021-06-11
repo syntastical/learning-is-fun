@@ -5,6 +5,11 @@ h1 {
     font-size: 250%;
 }
 
+ul {
+    list-style-type: none;
+}
+
+
 #output {
     text-align: center;
     font-family: "Arial", "sans-serif";

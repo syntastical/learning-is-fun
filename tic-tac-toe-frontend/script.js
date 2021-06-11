@@ -59,8 +59,8 @@ function joinGame() {
                     .then(text => document.location.href = `index.html?game=${text}`);
         });
 }
-
 function requestGames() {
+    console.log("method");
     fetch('http://localhost:8080/api/tic-tac-toe/lobby', {
         headers: {
             'Content-Type': 'application/json',
@@ -71,8 +71,22 @@ function requestGames() {
         .then(response => {
             return response.json()
                 .then(result => {
-                    document.getElementById("games").innerHTML = Object.keys(result)});
-        });
+                    let arr = [];
+                    while(document.getElementById("games").firstElementChild) {
+                        document.getElementById("games").firstElementChild.remove();
+                    }
+
+                    for (let i of Object.keys(result)) {
+                        let element = document.createElement("li");
+                        let button = document.createElement("input");
+                        button.type = "button";
+                        button.value= "Game " + i;
+                        button.onclick = () => document.location.href = `index.html?game=${i}`;
+                        document.getElementById("games").append(element);
+                        element.append(button);
+                    }
+                });
+        })
 }
 
 let xCoord;
@@ -85,43 +99,22 @@ function getMousePosition(table, event) {
     console.log("Coordinate x: " + x,
         "Coordinate y: " + y);
 
-    if (x <= 100) {
-        xCoord = 0;
-    }
-
-    else if (x >= 100 && x <= 200) {
-        xCoord = 1;
-    }
-
-    else {
-        xCoord = 2;
-    }
-
-    if (y <= 100) {
-        yCoord = 0;
-    }
-
-    else if (y >= 100 && y <= 200) {
-        yCoord = 1;
-    }
-
-    else {
-        yCoord = 2;
-    }
+    xCoord = Math.floor(x/100);
+    yCoord = Math.floor(y/100);
 }
 
 let id = (xCoord + 3 * yCoord).toString();
 let canvasElem = document.querySelector("table");
+
 
 canvasElem.addEventListener("mousedown", function(e)
 {
     getMousePosition(canvasElem, e);
 });
 
-
 async function updateBoard() {
-    console.log("x = " +xCoord)
-    console.log("y = " +yCoord)
+    console.log("x = " + xCoord)
+    console.log("y = " + yCoord)
     let game = {
         xCoordinate: xCoord,
         yCoordinate: yCoord,
@@ -151,6 +144,7 @@ async function updateBoard() {
 
     .then(response => {
         if (response.text() === "X" || response.text() === "O") {
+            console.log(id);
             return response.text()
                 .then(text => document.getElementById(id).textContent = text);
         }
@@ -170,4 +164,3 @@ function boardState() {
                 .then(text => document.getElementById('output').textContent = text);
         });
 }
-setInterval(() => fetchBoardState(), 100);
