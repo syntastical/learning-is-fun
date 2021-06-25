@@ -60,7 +60,6 @@ function joinGame() {
         });
 }
 function requestGames() {
-    console.log("method");
     fetch('http://localhost:8080/api/tic-tac-toe/lobby', {
         headers: {
             'Content-Type': 'application/json',

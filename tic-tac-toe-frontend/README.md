@@ -16,3 +16,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
 ## 2021-06-11
 1. Add game names to the API so people creating games can give the names a meaningful name
 1. Add chat to games (this will require a javascript and java
+
+## 2021-06-25
+1. Finish off using game names (lobby, etc...)
+1. Why isn't fetch working with our body?
