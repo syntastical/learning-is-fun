@@ -7,13 +7,12 @@
   <body>
     <h1>Lobby</h1>
 
+    <input type="button" onclick="createGame()" value="Create New Game" />
+
     <ul id="games"></ul>
 
-    <input type="button" onclick="createGame()" value="Create New Game" />
-    <input type="button" onclick="joinGame()" value="Join Game"/>
-
     <script src="script.js"></script>
-    <script>setInterval(() => requestGames(), 50);</script>
+    <script>setInterval(() => requestGames(), 1000);</script>
     </script>
   </body>
 </html>

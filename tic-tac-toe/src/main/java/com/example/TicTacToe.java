@@ -70,14 +70,23 @@ class Move {
 }
 
 class GameState {
+    String gameName = "";
     int playerTurn = 0;
+    int turns = 0;
     String player1;
     String player2;
     String[][] boardState = {{"", "", ""},
                             {"", "", ""},
                             {"", "", ""}};
-
     boolean winState = false;
+
+    public String getGameName() {
+        return gameName;
+    }
+
+    public void setGameName(String gameName) {
+        this.gameName = gameName;
+    }
 
     public int getPlayerTurn() {
         return playerTurn;
@@ -85,6 +94,14 @@ class GameState {
 
     public void setPlayerTurn(int playerTurn) {
         this.playerTurn = playerTurn;
+    }
+
+    public int getTurns() {
+        return turns;
+    }
+
+    public void setTurns(int turns) {
+        this.turns = turns;
     }
 
     public String getPlayer1() {
@@ -124,19 +141,18 @@ class GameState {
 @Secured({"admin"})
 public class TicTacToe {
 
-    private HashMap<Integer, GameState> games = new HashMap<>();
-    int gameCount = 0;
+    private HashMap<String, GameState> games = new HashMap<>();
     String moveString;
 
     @Post
-    public int createGame(Principal principal) {
-        GameState gameState = new GameState();
+    public GameState createGame(Principal principal, @Body GameState gameState) {
         // resets playerTurn to 0
         gameState.player1 = principal.getName();
-        gameCount++;
-        games.put(gameCount, gameState);
-        return gameCount;
+        games.put(gameState.gameName, gameState);
+        return gameState;
     }
+
+
 
     @Post("/join/{gameId}")
     public void joinGame(Principal principal, int gameId) {
@@ -145,11 +161,10 @@ public class TicTacToe {
 
     @Get("/lobby")
     public HashMap requestGames() {
-        HashMap<Integer, GameState> joinableGames = new HashMap<>();
-        for (Map.Entry<Integer, GameState> entry: games.entrySet())
+        HashMap<String, GameState> joinableGames = new HashMap<>();
+        for (Map.Entry<String, GameState> entry: games.entrySet())
         {
             if ((entry.getValue().player1 == null || entry.getValue().player2 == null) && !entry.getValue().winState) {
-                System.out.println("working");
                 joinableGames.put(entry.getKey(), entry.getValue());
             }
         }
@@ -174,6 +189,7 @@ public class TicTacToe {
         }
 
         if (!games.get(move.gameId).winState) {
+            games.get(move.gameId).turns++;
             games.get(move.gameId).playerTurn++;
             games.get(move.gameId).playerTurn %= 2;
             games.get(move.gameId).boardState[move.yCoordinate][move.xCoordinate] = moveString;

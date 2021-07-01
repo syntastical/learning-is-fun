@@ -31,17 +31,19 @@ function fetchBoardState() {
 }
 
 function createGame() {
+    let gameName = (prompt("Game Name: ", "Game 1"));
     fetch('http://localhost:8080/api/tic-tac-toe', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             credentials: 'include',
-            Authorization: `Basic ${btoa('sean:password')}`
+            Authorization: `Basic ${btoa('sean:password')}`,
+            body: JSON.stringify({gameName})
         }
     })
         .then(response => {
-            return response.text()
-                .then(text => document.location.href = `index.html?game=${text}`);
+            return response.json()
+                .then(response => console.log(response)/*json => document.location.href = `index.html?game=${json.gameName}`*/);
         });
 }
 
@@ -59,8 +61,8 @@ function joinGame() {
                     .then(text => document.location.href = `index.html?game=${text}`);
         });
 }
+
 function requestGames() {
-    console.log("method");
     fetch('http://localhost:8080/api/tic-tac-toe/lobby', {
         headers: {
             'Content-Type': 'application/json',
@@ -71,7 +73,7 @@ function requestGames() {
         .then(response => {
             return response.json()
                 .then(result => {
-                    let arr = [];
+                    //let arr = [];
                     while(document.getElementById("games").firstElementChild) {
                         document.getElementById("games").firstElementChild.remove();
                     }
@@ -80,10 +82,14 @@ function requestGames() {
                         let element = document.createElement("li");
                         let button = document.createElement("input");
                         button.type = "button";
-                        button.value= "Game " + i;
+                        //alert(gameName);
+                        /*if (!(gameName == null || gameName === "")) {
+                            button.value = gameName;
+                        }*/
                         button.onclick = () => document.location.href = `index.html?game=${i}`;
+                        //button.onclick= "javascript:location.href=`index.html?game=${i}`";
                         document.getElementById("games").append(element);
-                        element.append(button);
+                        element.appendChild(button);
                     }
                 });
         })
@@ -122,15 +128,6 @@ async function updateBoard() {
         user: "nick"
     };
     console.log("game: " + game);
-/*
-    fetch('http://localhost:8080/api/tic-tac-toe', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            credentials: 'include',
-            Authorization: `Basic ${btoa('sean:password')}`
-        }
-    })*/
 
     let response = await fetch('http://localhost:8080/api/tic-tac-toe/game', {
         method: 'POST',
