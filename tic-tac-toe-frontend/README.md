@@ -20,3 +20,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
 ## 2021-06-25
 1. Finish off using game names (lobby, etc...)
 1. Why isn't fetch working with our body?
+
+## 2021-07-02
+1. Add chat to the lobby
+1. Update API and add chat
