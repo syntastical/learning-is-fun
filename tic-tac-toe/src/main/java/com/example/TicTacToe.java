@@ -137,6 +137,27 @@ class GameState {
     }
 }
 
+class Message {
+    public String user;
+    public String msg;
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+}
+
 @Controller("/api/tic-tac-toe")
 @Secured({"admin"})
 public class TicTacToe {
@@ -155,7 +176,7 @@ public class TicTacToe {
 
 
     @Post("/join/{gameId}")
-    public void joinGame(Principal principal, int gameId) {
+    public void joinGame(Principal principal, String gameId) {
         games.get(gameId).player2 = principal.getName();
     }
 
@@ -221,5 +242,18 @@ public class TicTacToe {
             games.get(move.gameId).winState = true;
         }
         return games.get(move.gameId);
+    }
+
+    HashMap<String, String> messages = new HashMap<>();
+    @Post("/chat")
+    public String updateChat(@Body Message message) {
+        messages.put(message.user, message.msg);
+        String finalMsg = message.user + ": " + message.msg;
+        return finalMsg;
+    }
+
+    @Get("/chat")
+    public HashMap<String, String> getMessages() {
+        return messages;
     }
 }

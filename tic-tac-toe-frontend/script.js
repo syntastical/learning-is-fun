@@ -37,18 +37,18 @@ function createGame() {
         headers: {
             'Content-Type': 'application/json',
             credentials: 'include',
-            Authorization: `Basic ${btoa('sean:password')}`,
-            body: JSON.stringify({gameName})
-        }
+            Authorization: `Basic ${btoa('sean:password')}`
+            },
+        body: JSON.stringify({gameName})
     })
         .then(response => {
             return response.json()
-                .then(response => console.log(response)/*json => document.location.href = `index.html?game=${json.gameName}`*/);
+                .then(json => document.location.href = `index.html?game=${json.gameName}`);
         });
 }
 
-function joinGame() {
-    fetch('http://localhost:8080/api/tic-tac-toe', {
+function joinGame(gameName) {
+    return fetch(`http://localhost:8080/api/tic-tac-toe/join/${gameName}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ function joinGame() {
     })
         .then(response => {
                 return response.text()
-                    .then(text => document.location.href = `index.html?game=${text}`);
+                    .then(text => console.log(text));
         });
 }
 
@@ -82,11 +82,11 @@ function requestGames() {
                         let element = document.createElement("li");
                         let button = document.createElement("input");
                         button.type = "button";
-                        //alert(gameName);
-                        /*if (!(gameName == null || gameName === "")) {
-                            button.value = gameName;
-                        }*/
-                        button.onclick = () => document.location.href = `index.html?game=${i}`;
+                        button.value = i;
+                        button.onclick = async () => {
+                            await joinGame(i);
+                            document.location.href = `index.html?game=${i}`
+                        };
                         //button.onclick= "javascript:location.href=`index.html?game=${i}`";
                         document.getElementById("games").append(element);
                         element.appendChild(button);
