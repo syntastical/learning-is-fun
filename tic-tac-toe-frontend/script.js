@@ -161,3 +161,25 @@ function boardState() {
                 .then(text => document.getElementById('output').textContent = text);
         });
 }
+
+
+async function updateChat() {
+    let message = {
+        user: "nick",
+        msg: "hello"
+    }
+
+    let response = await fetch('http://localhost:8080/api/tic-tac-toe/chat', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            credentials: 'include',
+            Authorization: `Basic ${btoa('sean:password')}`
+        },
+        body: JSON.stringify(message)
+    })
+        .then(response => {
+            return response.text()
+                .then(text => document.getElementById("chat").innerHTML = `${text.user}: ${text.msg}`)
+        })
+}
