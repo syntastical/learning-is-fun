@@ -24,3 +24,8 @@ https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
 ## 2021-07-02
 1. Add chat to the lobby
 1. Update API and add chat
+
+#2021-07-09
+1. Add textbox/submit button for the chat so users can type their messages
+1. Add CSS
+1. Review https://learn.vonage.com/blog/2021/03/15/the-ultimate-list-of-fun-apis-for-your-next-coding-project/
