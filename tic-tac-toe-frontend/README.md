@@ -25,7 +25,14 @@ https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
 1. Add chat to the lobby
 1. Update API and add chat
 
-#2021-07-09
+## 2021-07-09
 1. Add textbox/submit button for the chat so users can type their messages
 1. Add CSS
 1. Review https://learn.vonage.com/blog/2021/03/15/the-ultimate-list-of-fun-apis-for-your-next-coding-project/
+
+## 2021-07-23
+1. Implement three endpoints (startProcess, checkStatus, getResult)
+1. startProcess should return immediately with an id of the process.
+1. checkStatus should take the id from startProcess and return the current status of the long running process.
+1. getResult should take the id from startProcess and return the result of the long running process.
+
