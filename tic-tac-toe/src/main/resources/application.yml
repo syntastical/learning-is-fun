@@ -2,6 +2,13 @@ micronaut:
   application:
     name: sandbox
   security:
+    intercept-url-map:
+      - pattern: /api/tic-tac-toe/**
+        access:
+          - isAuthenticated()
+      - pattern: /api/longrunning/**
+        access:
+          - isAnonymous()
     basic-auth:
       enabled: true
   server:
