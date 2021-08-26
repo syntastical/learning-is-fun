@@ -2,3 +2,4 @@
 out
 sandbox.iml
 **/bin
+.DS_Store
