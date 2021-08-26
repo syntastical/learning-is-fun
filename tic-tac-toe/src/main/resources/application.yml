@@ -6,11 +6,13 @@ micronaut:
       - pattern: /api/tic-tac-toe/**
         access:
           - isAuthenticated()
-      - pattern: /api/longrunning/**
+      - pattern: /**
         access:
           - isAnonymous()
     basic-auth:
       enabled: true
-  server:
-    cors:
-      enabled: true
+  router:
+    static-resources:
+      site:
+        paths:
+          - classpath:public

@@ -7,31 +7,29 @@ import io.micronaut.security.authentication.AuthenticationFailed;
 import io.micronaut.security.authentication.AuthenticationProvider;
 import io.micronaut.security.authentication.AuthenticationRequest;
 import io.micronaut.security.authentication.AuthenticationResponse;
-import io.micronaut.security.authentication.UserDetails;
-import io.reactivex.BackpressureStrategy;
-import io.reactivex.Flowable;
+import jakarta.inject.Singleton;
 import org.reactivestreams.Publisher;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.FluxSink;
 
-import javax.inject.Singleton;
-import java.util.ArrayList;
 import java.util.List;
 
 @Singleton
 public class AuthenticationProviderUserPassword implements AuthenticationProvider  {
     @Override
     public Publisher<AuthenticationResponse> authenticate(@Nullable HttpRequest<?> httpRequest, AuthenticationRequest<?, ?> authenticationRequest) {
-        return Flowable.create(emitter -> {
+        return Flux.create(emitter -> {
             if (authenticationRequest.getIdentity().equals("sean") &&
                     authenticationRequest.getSecret().equals("password") ) {
-                emitter.onNext(new UserDetails((String) authenticationRequest.getIdentity(), List.of("admin")));
-                emitter.onComplete();
+                emitter.next(AuthenticationResponse.success((String) authenticationRequest.getIdentity(), List.of("admin")));
+                emitter.complete();
             } else if (authenticationRequest.getIdentity().equals("nick") &&
                     authenticationRequest.getSecret().equals("word")) {
-                emitter.onNext(new UserDetails((String) authenticationRequest.getIdentity(), List.of("admin")));
-                emitter.onComplete();
+                emitter.next(AuthenticationResponse.success((String) authenticationRequest.getIdentity(), List.of("admin")));
+                emitter.complete();
             } else {
-                emitter.onError(new AuthenticationException(new AuthenticationFailed()));
+                emitter.error(new AuthenticationException(new AuthenticationFailed()));
             }
-        }, BackpressureStrategy.ERROR);
+        }, FluxSink.OverflowStrategy.ERROR);
     }
 }
